@@ -1,0 +1,6 @@
+name: Property List Module
+type: module
+package: Custom
+description: 'Module for listing properties received from API'
+core: 8.x
+version: 1.0.0
