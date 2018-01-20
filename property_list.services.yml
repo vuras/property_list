@@ -10,3 +10,8 @@ services:
     arguments:
       - '@guzzle.client'
       - '@property_list.response_validator'
+
+  property_list.properties_endpoint:
+    class: Drupal\property_list\Endpoint\PropertiesEndpoint
+    arguments:
+      - '@property_list.api_client'

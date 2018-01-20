@@ -13,11 +13,6 @@ use GuzzleHttp\Client;
 class ApiClient
 {
   /**
-   * API response URI
-   */
-  const API_URI = 'https://raw.githubusercontent.com/adaptdk/backend-novasol-challenge/master/response.json';
-
-  /**
    * @var Client
    */
   private $client;
@@ -41,20 +36,23 @@ class ApiClient
   /**
    * GET request to API
    *
+   * @param string $uri
+   * @param array $queryParameters
    * @return array
    */
-  public function get()
+  public function get(string $uri, array $queryParameters = []) : array
   {
     $response = json_decode(
       $this->client->get(
-        self::API_URI, [
+        $uri, [
+          'query' => $queryParameters,
           'verify' => false
         ])->getBody()->getContents(),
       true
     );
 
     if($this->validator->validate($response)){
-      return $response['results'];
+      return $response;
     } else {
       return [];
     }

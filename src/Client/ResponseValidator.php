@@ -17,6 +17,6 @@ class ResponseValidator
    */
   public function validate($response) : bool
   {
-    return (!empty($response) || !is_null($response)) && is_null($response['errorMessages']) ? true : false;
+    return empty($response) || is_null($response) || !is_null($response['errorMessages']) ? false : true;
   }
 }

@@ -9,23 +9,23 @@
 namespace Drupal\property_list\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\property_list\Client\ApiClient;
+use Drupal\property_list\Endpoint\PropertiesEndpoint;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PropertyListController extends ControllerBase
 {
   /**
-   * @var ApiClient
+   * @var PropertiesEndpoint
    */
-  protected $apiClient;
+  private $endpoint;
 
   /**
    * PropertyListController constructor.
-   * @param ApiClient $apiClient
+   * @param PropertiesEndpoint $endpoint
    */
-  public function __construct(ApiClient $apiClient)
+  public function __construct(PropertiesEndpoint $endpoint)
   {
-    $this->apiClient = $apiClient;
+    $this->endpoint = $endpoint;
   }
 
   /**
@@ -35,7 +35,7 @@ class PropertyListController extends ControllerBase
   public static function create(ContainerInterface $container)
   {
     return new static(
-      $container->get('property_list.api_client')
+      $container->get('property_list.properties_endpoint')
     );
   }
 
@@ -45,10 +45,10 @@ class PropertyListController extends ControllerBase
    * @return array
    */
   public function content() {
-    $properties = $this->apiClient->get();
+    $response = $this->endpoint->get();
     return array(
       '#theme' => 'property_list',
-      '#properties' => $properties,
+      '#properties' => $response['results'],
     );
   }
 }
