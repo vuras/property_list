@@ -9,18 +9,46 @@
 namespace Drupal\property_list\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\property_list\Client\ApiClient;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PropertyListController extends ControllerBase
 {
+  /**
+   * @var ApiClient
+   */
+  protected $apiClient;
+
+  /**
+   * PropertyListController constructor.
+   * @param ApiClient $apiClient
+   */
+  public function __construct(ApiClient $apiClient)
+  {
+    $this->apiClient = $apiClient;
+  }
+
+  /**
+   * @param ContainerInterface $container
+   * @return static
+   */
+  public static function create(ContainerInterface $container)
+  {
+    return new static(
+      $container->get('property_list.api_client')
+    );
+  }
+
   /**
    * Display the markup.
    *
    * @return array
    */
   public function content() {
+    $properties = $this->apiClient->get();
     return array(
-      '#type' => 'markup',
-      '#markup' => $this->t('Property list'),
+      '#theme' => 'property_list',
+      '#properties' => $properties,
     );
   }
 }

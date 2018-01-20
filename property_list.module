@@ -3,3 +3,17 @@
 * @file
 * Module for listing properties received from API
 */
+
+/**
+ * Implements hook_theme().
+ */
+function property_list_theme() {
+  return [
+    'property_list' => [
+      'render element' => 'elements',
+      'variables' => [
+        'properties' => []
+      ]
+    ]
+  ];
+}

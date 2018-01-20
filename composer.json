@@ -1,0 +1,17 @@
+{
+    "name": "adapt/property-list-module",
+    "description": "Drupal module for listing properties",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Artur Butov",
+            "email": "arturas.butovas@gmail.com",
+            "role": "Creator"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "6.3.*"
+    }
+}

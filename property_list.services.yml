@@ -1,0 +1,12 @@
+services:
+  guzzle.client:
+    class: GuzzleHttp\Client
+
+  property_list.response_validator:
+    class: Drupal\property_list\Client\ResponseValidator
+
+  property_list.api_client:
+    class: Drupal\property_list\Client\ApiClient
+    arguments:
+      - '@guzzle.client'
+      - '@property_list.response_validator'

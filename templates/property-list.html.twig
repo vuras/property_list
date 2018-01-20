@@ -1,0 +1,22 @@
+<div class="properties">
+  {% for property in properties %}
+    <div class="property-item">
+      <h2 class="headline">{{ property.headline }}</h2>
+      <img class="picture" src="{{ property.picture }}">
+      <div class="property-type-name">{{ property.propertyTypeName }}</div>
+      <div class="beds">{{ property.beds }}</div>
+      <div class="country-name">{{ property.countryName }}</div>
+      <div class="property-size">{{ property.propertySize }}</div>
+      <div class="distance-shop">{{ property.distanceShop }}</div>
+      <div class="distance-water">{{ property.distanceWater }}</div>
+      <div class="property-type">{{ property.propertyType }}</div>
+      <div class="bathrooms">{{ property.bathrooms }}</div>
+      <div class="bedrooms">{{ property.bedrooms }}</div>
+      <div class="score">{{ property.score }}</div>
+      <div class="rating">{{ property.rating }}</div>
+      <div class="pets">{{ property.pets }}</div>
+      <div class="adults">{{ property.adults }}</div>
+      <div class="children">{{ property.children }}</div>
+    </div>
+  {% endfor %}
+</div>
