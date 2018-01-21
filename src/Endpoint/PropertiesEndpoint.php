@@ -15,7 +15,7 @@ class PropertiesEndpoint
   /**
    * Properties endpoint
    */
-  const ENDPOINT = 'https://raw.githubusercontent.com/adaptdk/backend-novasol-challenge/master/response.json';
+  const ENDPOINT_URL = 'https://raw.githubusercontent.com/adaptdk/backend-novasol-challenge/master/response.json';
 
   /**
    * @var ApiClient
@@ -37,6 +37,6 @@ class PropertiesEndpoint
    */
   public function get(array $queryParameters = [])
   {
-    return $this->apiClient->get(self::ENDPOINT, $queryParameters);
+    return $this->apiClient->get(self::ENDPOINT_URL, $queryParameters);
   }
 }

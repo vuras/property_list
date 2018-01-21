@@ -38,7 +38,7 @@ class ApiClientTest extends UnitTestCase
 
   public function testGet()
   {
-    $this->assertTrue(is_array($this->apiClient->get(PropertiesEndpoint::ENDPOINT)));
-    $this->assertArrayHasKey('results', $this->apiClient->get(PropertiesEndpoint::ENDPOINT));
+    $this->assertTrue(is_array($this->apiClient->get(PropertiesEndpoint::ENDPOINT_URL)));
+    $this->assertArrayHasKey('results', $this->apiClient->get(PropertiesEndpoint::ENDPOINT_URL));
   }
 }

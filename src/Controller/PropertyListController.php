@@ -17,6 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 class PropertyListController extends ControllerBase
 {
   /**
+   * Properties per page
+   */
+  const PROPERTIES_PER_PAGE = 10;
+
+  /**
    * @var PropertiesEndpoint
    */
   private $endpoint;
@@ -52,16 +57,31 @@ class PropertyListController extends ControllerBase
 
     $from = $request->query->get('from', date('Ymd'));
     $to = $request->query->get('to', date('Ymd', strtotime('last day of december this year')));
+
+    $page = pager_find_page();
+    $offset = self::PROPERTIES_PER_PAGE * $page;
     $response = $this->endpoint->get([
-      'from' => $from,
-      'to' => $to
+      'from'    => $from,
+      'to'      => $to,
+      'offset'  => $offset
     ]);
 
+    pager_default_initialize($response['total'], self::PROPERTIES_PER_PAGE);
+
     return array(
-      '#theme'      => 'property_list',
-      '#properties' => $response['results'],
-      '#form'       => $form,
-      '#empty'      => 'We could not find any available properties for these dates'
+      'property_list' => [
+        '#theme'      => 'property_list',
+        '#properties' => $response['results'],
+        '#form'       => $form,
+        '#empty'      => 'We could not find any available properties for these dates'
+      ],
+      'pager'       => [
+        '#type'       => 'pager',
+        '#parameters' => [
+          'from'      => $from,
+          'to'        => $to
+        ]
+      ]
     );
   }
 }
