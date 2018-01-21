@@ -18,19 +18,12 @@ class ApiClient
   private $client;
 
   /**
-   * @var ResponseValidator
-   */
-  private $validator;
-
-  /**
    * ApiClient constructor.
    * @param Client $client
-   * @param ResponseValidator $validator
    */
-  public function __construct(Client $client, ResponseValidator $validator)
+  public function __construct(Client $client)
   {
     $this->client = $client;
-    $this->validator = $validator;
   }
 
   /**
@@ -51,7 +44,7 @@ class ApiClient
       true
     );
 
-    if($this->validator->validate($response)){
+    if(ResponseValidator::validate($response)){
       return $response;
     } else {
       return [];

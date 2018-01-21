@@ -31,7 +31,7 @@ class PropertiesEndpointTest extends UnitTestCase
    */
   public function setUp()
   {
-    $client = new ApiClient(new Client(), new ResponseValidator());
+    $client = new ApiClient(new Client());
     $this->endpoint = new PropertiesEndpoint($client);
   }
 

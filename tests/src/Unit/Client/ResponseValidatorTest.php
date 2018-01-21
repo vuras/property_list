@@ -18,27 +18,14 @@ use Drupal\Tests\UnitTestCase;
  */
 class ResponseValidatorTest extends UnitTestCase
 {
-  /**
-   * @var ResponseValidator
-   */
-  private $validator;
-
-  /**
-   * Constructor
-   */
-  public function setUp()
-  {
-    $this->validator = new ResponseValidator();
-  }
-
   public function testValidate()
   {
-    $this->assertFalse($this->validator->validate(null));
-    $this->assertFalse($this->validator->validate([]));
-    $this->assertFalse($this->validator->validate(['errorMessages' => [
+    $this->assertFalse(ResponseValidator::validate(null));
+    $this->assertFalse(ResponseValidator::validate([]));
+    $this->assertFalse(ResponseValidator::validate(['errorMessages' => [
       'test error'
     ]]));
-    $this->assertTrue($this->validator->validate([
+    $this->assertTrue(ResponseValidator::validate([
       'errorMessages' => null,
       'results' => []
     ]));

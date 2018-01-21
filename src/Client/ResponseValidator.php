@@ -15,7 +15,7 @@ class ResponseValidator
    * @param $response
    * @return bool
    */
-  public function validate($response) : bool
+  static public function validate($response) : bool
   {
     return empty($response) || is_null($response) || !is_null($response['errorMessages']) ? false : true;
   }

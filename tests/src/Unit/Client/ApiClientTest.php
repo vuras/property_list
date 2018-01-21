@@ -9,7 +9,6 @@
 namespace Drupal\Tests\property_list\Unit\Client;
 
 use Drupal\property_list\Client\ApiClient;
-use Drupal\property_list\Client\ResponseValidator;
 use Drupal\property_list\Endpoint\PropertiesEndpoint;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
@@ -32,8 +31,7 @@ class ApiClientTest extends UnitTestCase
   public function setUp()
   {
     $client = new Client();
-    $validator = new ResponseValidator();
-    $this->apiClient = new ApiClient($client, $validator);
+    $this->apiClient = new ApiClient($client);
   }
 
   public function testGet()
