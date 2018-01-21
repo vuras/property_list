@@ -10,7 +10,7 @@ namespace Drupal\property_list\Endpoint;
 
 use Drupal\property_list\Client\ApiClient;
 
-class PropertiesEndpoint
+class PropertiesEndpoint implements EndpointInterface
 {
   /**
    * Properties endpoint
@@ -35,7 +35,7 @@ class PropertiesEndpoint
    * @param array $queryParameters
    * @return array
    */
-  public function get(array $queryParameters = [])
+  public function get(array $queryParameters = []) : array
   {
     return $this->apiClient->get(self::ENDPOINT_URL, $queryParameters);
   }

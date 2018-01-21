@@ -10,7 +10,7 @@ namespace Drupal\property_list\Client;
 
 use GuzzleHttp\Client;
 
-class ApiClient
+class ApiClient implements ApiClientInterface
 {
   /**
    * @var Client
