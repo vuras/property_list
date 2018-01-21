@@ -57,9 +57,10 @@ class PropertyListController extends ControllerBase
     $propertiesPerPage = $this->config('property_list.settings')->get('properties_per_page');
     $offset = $propertiesPerPage * $page;
     $response = $this->endpoint->get([
-      'from'    => $from,
-      'to'      => $to,
-      'offset'  => $offset
+      'from'      => $from,
+      'to'        => $to,
+      'offset'    => $offset,
+      'per_page'  => $propertiesPerPage
     ]);
 
     pager_default_initialize($response['total'], $propertiesPerPage);
@@ -69,7 +70,7 @@ class PropertyListController extends ControllerBase
         '#theme'      => 'property_list',
         '#properties' => $response['results'],
         '#form'       => $form,
-        '#empty'      => 'We could not find any available properties for these dates'
+        '#empty'      => $this->t('We could not find any available properties for these dates')
       ],
       'pager'       => [
         '#type'       => 'pager',

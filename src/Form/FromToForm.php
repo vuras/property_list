@@ -32,17 +32,19 @@ class FromToForm extends FormBase
   {
     $form['from'] = [
       '#type'             => 'date',
-      '#title'            => $this->t('From')
+      '#title'            => $this->t('From'),
+      '#description'       => $this->t('Check in')
     ];
 
     $form['to'] = [
       '#type'             => 'date',
-      '#title'            => $this->t('To')
+      '#title'            => $this->t('To'),
+      '#description'       => $this->t('Check out')
     ];
 
     $form['submit'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Search'),
+      '#value' => $this->t('Search')
     );
 
     return $form;
@@ -76,7 +78,8 @@ class FromToForm extends FormBase
       [],
       [
         'query' => [
-          'from' => $from, 'to' => $to
+          'from' => $from,
+          'to' => $to
         ]
       ]);
 
