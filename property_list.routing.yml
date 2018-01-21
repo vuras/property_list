@@ -5,3 +5,11 @@ property_list.content:
     _title: 'Property List'
   requirements:
     _permission: 'access content'
+
+property_list.settings:
+  path: '/admin/config/property_list'
+  defaults:
+    _form: '\Drupal\property_list\Form\PropertyListSettingsForm'
+    _title: 'Property List configuration'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,6 +1,6 @@
 property_list.admin:
-  title: 'Property list module settings'
+  title: 'Property list'
   description: 'Settings for Property List module'
-  parent: system.admin_config_development
-  route_name: property_list.content
+  parent: system.admin_config_media
+  route_name: property_list.settings
   weight: 100

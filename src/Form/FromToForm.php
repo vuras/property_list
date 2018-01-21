@@ -32,12 +32,12 @@ class FromToForm extends FormBase
   {
     $form['from'] = [
       '#type'             => 'date',
-      '#title'            => 'From'
+      '#title'            => $this->t('From')
     ];
 
     $form['to'] = [
       '#type'             => 'date',
-      '#title'            => 'To'
+      '#title'            => $this->t('To')
     ];
 
     $form['submit'] = array(
