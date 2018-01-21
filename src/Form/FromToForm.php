@@ -8,12 +8,9 @@
 
 namespace Drupal\property_list\Form;
 
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\property_list\Endpoint\PropertiesEndpoint;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FromToForm extends FormBase
 {
