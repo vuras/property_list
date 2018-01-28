@@ -42,14 +42,12 @@ class PropertyListController extends ControllerBase
   }
 
   /**
-   * Display the markup.
+   * Display Property List page.
    *
    * @return array
    */
   public function content(Request $request)
   {
-    $form = \Drupal::formBuilder()->getForm(FromToForm::class);
-
     $from = $request->query->get('from', date('Ymd'));
     $to = $request->query->get('to', date('Ymd', strtotime('last day of december this year')));
 
@@ -66,18 +64,9 @@ class PropertyListController extends ControllerBase
     pager_default_initialize($response->total, $propertiesPerPage);
 
     return array(
-      'property_list' => [
-        '#theme'      => 'property_list',
-        '#properties' => $response->results,
-        '#form'       => $form,
-        '#empty'      => $this->t('We could not find any available properties for these dates')
-      ],
-      'pager'       => [
-        '#type'       => 'pager',
-        '#parameters' => [
-          'from'      => $from,
-          'to'        => $to
-        ]
+      'properties_page' => [
+        '#theme'      => 'properties_page',
+        '#properties' => $response->results
       ]
     );
   }

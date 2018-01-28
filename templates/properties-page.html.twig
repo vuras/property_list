@@ -1,0 +1,19 @@
+{#
+/**
+* @file
+* Default theme implementation to display property list page.
+*
+* Available variables:
+* - property_list: Array of properties returned by API
+* - form: Form render array
+*
+* @see template_preprocess_properties_page
+*
+* @ingroup themeable
+*/
+#}
+
+<div {{ attributes }}>
+  {{ form }}
+  {{ property_list }}
+</div>

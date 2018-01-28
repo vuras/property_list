@@ -4,19 +4,75 @@
 * Module for listing properties received from API
 */
 
+use Drupal\property_list\Form\FromToForm;
+
 /**
  * Implements hook_theme().
  */
 function property_list_theme()
 {
   return [
+    'properties_page'    => [
+      'variables' => [
+        'properties' => []
+      ]
+    ],
     'property_list' => [
-      'render element' => 'elements',
       'variables' => [
         'properties' => [],
-        'form'       => null,
+        'pager'      => null,
         'empty'      => null
       ]
+    ],
+    'property_item' => [
+      'variables' => [
+        'property' => null
+      ]
+    ]
+  ];
+}
+
+/**
+ * Default template: properties-page.html.twig.
+ *
+ * @param $variables
+ */
+function template_preprocess_properties_page(&$variables)
+{
+  $form = \Drupal::formBuilder()->getForm(FromToForm::class);
+  $variables['form'] = $form;
+
+  $properties = [];
+  foreach ($variables['properties'] as $property) {
+    $properties[] = [
+      'property' => [
+        '#theme'    => 'property_item',
+        '#property' => $property
+      ]
+    ];
+  }
+
+  $variables['property_list'] = [
+    '#theme'      => 'property_list',
+    '#properties' => $properties,
+    '#empty'      => t('We could not find any available properties for these dates')
+  ];
+}
+
+/**
+ * Default template: property-list.html.twig.
+ *
+ * @param $variables
+ */
+function template_preprocess_property_list(&$variables)
+{
+  $from = \Drupal::request()->query->get('from', date('Ymd'));
+  $to = \Drupal::request()->query->get('to', date('Ymd', strtotime('last day of december this year')));
+  $variables['pager'] = [
+    '#type'       => 'pager',
+    '#parameters' => [
+      'from'      => $from,
+      'to'        => $to
     ]
   ];
 }

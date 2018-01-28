@@ -1,45 +1,28 @@
 {#
 /**
- * Available variables:
+ * @file
+ * Default theme implementation to display property list.
  *
+ * Available variables:
  * - properties: Array of properties returned by API
- * - form: Form render array
+ * - pager: The pager.
  * - empty: The content to display if there are no rows.
+ *
+ * @see template_preprocess_property_list
  *
  * @ingroup themeable
  */
 #}
 
-<div {{ attributes }}>
-  <div class="from-to-form">
-    {{ form }}
-  </div>
-  <div {{ content_attributes.addClass('properties') }}>
-    {% if properties %}
-      <ul>
-        {% for property in properties %}
-          <li class="property-item">
-            <h2 class="headline">{{ property.headline }}</h2>
-            <img class="picture" src="{{ property.picture }}">
-            <div class="property-type-name">{{ property.propertyTypeName }}</div>
-            <div class="beds">{{ property.beds }}</div>
-            <div class="country-name">{{ property.countryName }}</div>
-            <div class="property-size">{{ property.propertySize }}</div>
-            <div class="distance-shop">{{ property.distanceShop }}</div>
-            <div class="distance-water">{{ property.distanceWater }}</div>
-            <div class="property-type">{{ property.propertyType }}</div>
-            <div class="bathrooms">{{ property.bathrooms }}</div>
-            <div class="bedrooms">{{ property.bedrooms }}</div>
-            <div class="score">{{ property.score }}</div>
-            <div class="rating">{{ property.rating }}</div>
-            <div class="pets">{{ property.pets }}</div>
-            <div class="adults">{{ property.adults }}</div>
-            <div class="children">{{ property.children }}</div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      {{ empty }}
-    {% endif %}
-  </div>
+<div {{ attributes.addClass('properties') }}>
+  {% if properties %}
+    <ul>
+      {% for property in properties %}
+        {{ property }}
+      {% endfor %}
+    </ul>
+    {{ pager }}
+  {% else %}
+    {{ empty }}
+  {% endif %}
 </div>
