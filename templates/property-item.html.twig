@@ -13,6 +13,11 @@
 <li {{ attributes.addClass('property-item') }}>
   <h2 class="headline">{{ property.headline }}</h2>
   <img class="picture" src="{{ property.picture }}">
+  <div class="prices">
+    {% for price in property.prices %}
+      <div class="total-price"> {{ price.totalPrice }}</div>
+    {% endfor %}
+  </div>
   <div class="property-type-name">{{ property.propertyTypeName }}</div>
   <div class="beds">{{ property.beds }}</div>
   <div class="country-name">{{ property.countryName }}</div>
