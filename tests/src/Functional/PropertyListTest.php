@@ -25,10 +25,22 @@ class PropertyListTest extends BrowserTestBase
   public function testPropertyList()
   {
     $this->drupalGet('properties/list');
+
+    // Page rendering testing
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Property List');
     $this->assertSession()->pageTextNotContains('We could not find any available properties for these dates');
     $this->assertSession()->linkExists('Last »');
+
+    // Pagination testing
+    $this->clickLink('Last »');
+    $this->assertSession()->linkExists('« First');
+
+    // Form testings
+    $this->getSession()->getPage()->fillField('from', '2018-01-01');
+    $this->getSession()->getPage()->fillField('to', '2018-01-10');
+    $this->getSession()->getPage()->pressButton('Search');
+    $this->assertSession()->pageTextNotContains('We could not find any available properties for these dates');
   }
 
 }
