@@ -9,10 +9,14 @@
 namespace Drupal\Tests\property_list\Unit\Endpoint;
 
 use Drupal\property_list\Client\ApiClient;
-use Drupal\property_list\Client\ResponseValidator;
+use Drupal\property_list\DTO\EntityBase;
+use Drupal\property_list\DTO\Property;
 use Drupal\property_list\Endpoint\PropertiesEndpoint;
+use Drupal\serialization\Encoder\JsonEncoder;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class PropertiesEndpointTest
@@ -31,13 +35,18 @@ class PropertiesEndpointTest extends UnitTestCase
    */
   public function setUp()
   {
-    $client = new ApiClient(new Client());
-    $this->endpoint = new PropertiesEndpoint($client);
+    $serializer = new Serializer([ new GetSetMethodNormalizer() ], [ new JsonEncoder() ]);
+    $client = new ApiClient(new Client(), $serializer);
+    $this->endpoint = new PropertiesEndpoint($client, $serializer);
   }
 
   public function testGet()
   {
-    $this->assertTrue(is_array($this->endpoint->get()));
-    $this->assertArrayHasKey('results', $this->endpoint->get());
+    $response = $this->endpoint->get();
+    $this->assertInstanceOf(EntityBase::class, $response);
+    $this->assertTrue(!empty($response->results));
+    foreach ($response->results as $record){
+      $this->assertInstanceOf(Property::class, $record);
+    }
   }
 }

@@ -8,6 +8,7 @@
 
 namespace Drupal\property_list\Endpoint;
 
+use Drupal\property_list\DTO\EntityBase;
 
 interface EndpointInterface
 {
@@ -15,7 +16,7 @@ interface EndpointInterface
    * Gets data from a specific endpoint
    *
    * @param array $queryParameters
-   * @return array
+   * @return EntityBase
    */
-  public function get(array $queryParameters = []) : array;
+  public function get(array $queryParameters = []) : EntityBase;
 }

@@ -9,9 +9,13 @@
 namespace Drupal\Tests\property_list\Unit\Client;
 
 use Drupal\property_list\Client\ApiClient;
+use Drupal\property_list\DTO\EntityBase;
 use Drupal\property_list\Endpoint\PropertiesEndpoint;
+use Drupal\serialization\Encoder\JsonEncoder;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class ApiClientTest
@@ -31,12 +35,14 @@ class ApiClientTest extends UnitTestCase
   public function setUp()
   {
     $client = new Client();
-    $this->apiClient = new ApiClient($client);
+    $serializer = new Serializer([ new GetSetMethodNormalizer() ], [ new JsonEncoder() ]);
+    $this->apiClient = new ApiClient($client, $serializer);
   }
 
   public function testGet()
   {
-    $this->assertTrue(is_array($this->apiClient->get(PropertiesEndpoint::ENDPOINT_URL)));
-    $this->assertArrayHasKey('results', $this->apiClient->get(PropertiesEndpoint::ENDPOINT_URL));
+    $response = $this->apiClient->get(PropertiesEndpoint::ENDPOINT_URL);
+    $this->assertInstanceOf(EntityBase::class, $response);
+    $this->assertTrue(!empty($response->results));
   }
 }

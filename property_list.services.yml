@@ -1,13 +1,17 @@
 services:
-  guzzle.client:
-    class: GuzzleHttp\Client
-
   property_list.api_client:
     class: Drupal\property_list\Client\ApiClient
     arguments:
-      - '@guzzle.client'
+      - '@http_client'
+      - '@serializer'
 
   property_list.properties_endpoint:
     class: Drupal\property_list\Endpoint\PropertiesEndpoint
     arguments:
       - '@property_list.api_client'
+      - '@serializer'
+
+  property_list.normalizer.object:
+    class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+    tags:
+      - { name: normalizer }

@@ -8,9 +8,10 @@
 
 namespace Drupal\property_list\Endpoint;
 
-use Drupal\property_list\Client\ApiClient;
+use Drupal\property_list\DTO\EntityBase;
+use Drupal\property_list\DTO\Property;
 
-class PropertiesEndpoint implements EndpointInterface
+class PropertiesEndpoint extends EndpointBase implements EndpointInterface
 {
   /**
    * Properties endpoint
@@ -18,25 +19,14 @@ class PropertiesEndpoint implements EndpointInterface
   const ENDPOINT_URL = 'https://raw.githubusercontent.com/adaptdk/backend-novasol-challenge/master/response.json';
 
   /**
-   * @var ApiClient
-   */
-  private $apiClient;
-
-  /**
-   * PropertiesEndpoint constructor.
-   * @param ApiClient $apiClient
-   */
-  public function __construct(ApiClient $apiClient)
-  {
-    $this->apiClient = $apiClient;
-  }
-
-  /**
    * @param array $queryParameters
-   * @return array
+   * @return EntityBase
    */
-  public function get(array $queryParameters = []) : array
+  public function get(array $queryParameters = []) : EntityBase
   {
-    return $this->apiClient->get(self::ENDPOINT_URL, $queryParameters);
+    return $this->process(
+      $this->apiClient->get(self::ENDPOINT_URL, $queryParameters),
+      Property::class
+    );
   }
 }

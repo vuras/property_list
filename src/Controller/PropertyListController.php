@@ -63,12 +63,12 @@ class PropertyListController extends ControllerBase
       'per_page'  => $propertiesPerPage
     ]);
 
-    pager_default_initialize($response['total'], $propertiesPerPage);
+    pager_default_initialize($response->total, $propertiesPerPage);
 
     return array(
       'property_list' => [
         '#theme'      => 'property_list',
-        '#properties' => $response['results'],
+        '#properties' => $response->results,
         '#form'       => $form,
         '#empty'      => $this->t('We could not find any available properties for these dates')
       ],

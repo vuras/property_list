@@ -20,7 +20,7 @@ class PropertyListTest extends BrowserTestBase
   /**
    * @var array
    */
-  protected static $modules = ['node', 'property_list'];
+  protected static $modules = ['node', 'serialization', 'property_list'];
 
   public function testPropertyList()
   {

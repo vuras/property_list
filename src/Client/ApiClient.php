@@ -8,7 +8,9 @@
 
 namespace Drupal\property_list\Client;
 
+use Drupal\property_list\DTO\EntityBase;
 use GuzzleHttp\Client;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiClient implements ApiClientInterface
 {
@@ -18,12 +20,19 @@ class ApiClient implements ApiClientInterface
   private $client;
 
   /**
+   * @var SerializerInterface
+   */
+  private $serializer;
+
+  /**
    * ApiClient constructor.
    * @param Client $client
+   * @param SerializerInterface $serializer
    */
-  public function __construct(Client $client)
+  public function __construct(Client $client, SerializerInterface $serializer)
   {
     $this->client = $client;
+    $this->serializer = $serializer;
   }
 
   /**
@@ -31,23 +40,24 @@ class ApiClient implements ApiClientInterface
    *
    * @param string $uri
    * @param array $queryParameters
-   * @return array
+   * @return EntityBase
    */
-  public function get(string $uri, array $queryParameters = []) : array
+  public function get(string $uri, array $queryParameters = []) : EntityBase
   {
-    $response = json_decode(
+    $response = $this->serializer->deserialize(
       $this->client->get(
         $uri, [
           'query' => $queryParameters,
           'verify' => false
         ])->getBody()->getContents(),
-      true
+      EntityBase::class,
+      'json'
     );
 
     if(ResponseValidator::validate($response)){
       return $response;
     } else {
-      return [];
+      return new EntityBase();
     }
   }
 }

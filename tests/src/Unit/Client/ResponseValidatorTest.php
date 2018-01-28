@@ -9,6 +9,7 @@
 namespace Drupal\Tests\property_list\Unit\Client;
 
 use Drupal\property_list\Client\ResponseValidator;
+use Drupal\property_list\DTO\EntityBase;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -20,14 +21,11 @@ class ResponseValidatorTest extends UnitTestCase
 {
   public function testValidate()
   {
-    $this->assertFalse(ResponseValidator::validate(null));
-    $this->assertFalse(ResponseValidator::validate([]));
-    $this->assertFalse(ResponseValidator::validate(['errorMessages' => [
-      'test error'
-    ]]));
-    $this->assertTrue(ResponseValidator::validate([
-      'errorMessages' => null,
-      'results' => []
-    ]));
+    $entity = new EntityBase();
+    $entity->errorMessages = [
+      'test error' => 'message'
+    ];
+    $this->assertFalse(ResponseValidator::validate($entity));
+    $this->assertTrue(ResponseValidator::validate(new EntityBase()));
   }
 }

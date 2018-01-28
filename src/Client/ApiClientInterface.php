@@ -8,6 +8,7 @@
 
 namespace Drupal\property_list\Client;
 
+use Drupal\property_list\DTO\EntityBase;
 
 interface ApiClientInterface
 {
@@ -16,7 +17,7 @@ interface ApiClientInterface
    *
    * @param string $uri
    * @param array $queryParameters
-   * @return array
+   * @return EntityBase
    */
-  public function get(string $uri, array $queryParameters = []) : array;
+  public function get(string $uri, array $queryParameters = []) : EntityBase;
 }
