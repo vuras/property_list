@@ -34,20 +34,4 @@ class EndpointBase
     $this->apiClient = $apiClient;
     $this->serializer = $serializer;
   }
-
-  /**
-   * @param EntityBase $entityBase
-   * @param string $className
-   * @return EntityBase
-   */
-  protected function process(EntityBase $entityBase, string $className) : EntityBase
-  {
-    $data = [];
-    foreach($entityBase->results as $record) {
-      $data[] = $this->serializer->denormalize($record, $className);
-    }
-    $entityBase->results = $data;
-
-    return $entityBase;
-  }
 }

@@ -15,3 +15,8 @@ services:
     class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
     tags:
       - { name: normalizer }
+
+  property_list.normalizer.entity_base_results:
+    class: Drupal\property_list\Normalizer\EntityBaseResultsNormalizer
+    tags:
+      - { name: normalizer, priority: 1 }

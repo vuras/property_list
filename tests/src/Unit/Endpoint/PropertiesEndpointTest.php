@@ -12,6 +12,7 @@ use Drupal\property_list\Client\ApiClient;
 use Drupal\property_list\DTO\EntityBase;
 use Drupal\property_list\DTO\Property;
 use Drupal\property_list\Endpoint\PropertiesEndpoint;
+use Drupal\property_list\Normalizer\EntityBaseResultsNormalizer;
 use Drupal\serialization\Encoder\JsonEncoder;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
@@ -35,7 +36,7 @@ class PropertiesEndpointTest extends UnitTestCase
    */
   public function setUp()
   {
-    $serializer = new Serializer([ new GetSetMethodNormalizer() ], [ new JsonEncoder() ]);
+    $serializer = new Serializer([ new EntityBaseResultsNormalizer(), new GetSetMethodNormalizer() ], [ new JsonEncoder() ]);
     $client = new ApiClient(new Client(), $serializer);
     $this->endpoint = new PropertiesEndpoint($client, $serializer);
   }

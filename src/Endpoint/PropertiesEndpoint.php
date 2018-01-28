@@ -24,7 +24,7 @@ class PropertiesEndpoint extends EndpointBase implements EndpointInterface
    */
   public function get(array $queryParameters = []) : EntityBase
   {
-    return $this->process(
+    return $this->serializer->denormalize(
       $this->apiClient->get(self::ENDPOINT_URL, $queryParameters),
       Property::class
     );

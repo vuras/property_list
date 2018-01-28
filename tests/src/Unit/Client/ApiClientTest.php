@@ -11,6 +11,7 @@ namespace Drupal\Tests\property_list\Unit\Client;
 use Drupal\property_list\Client\ApiClient;
 use Drupal\property_list\DTO\EntityBase;
 use Drupal\property_list\Endpoint\PropertiesEndpoint;
+use Drupal\property_list\Normalizer\EntityBaseResultsNormalizer;
 use Drupal\serialization\Encoder\JsonEncoder;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
@@ -35,7 +36,7 @@ class ApiClientTest extends UnitTestCase
   public function setUp()
   {
     $client = new Client();
-    $serializer = new Serializer([ new GetSetMethodNormalizer() ], [ new JsonEncoder() ]);
+    $serializer = new Serializer([ new GetSetMethodNormalizer(), new EntityBaseResultsNormalizer() ], [ new JsonEncoder() ]);
     $this->apiClient = new ApiClient($client, $serializer);
   }
 
