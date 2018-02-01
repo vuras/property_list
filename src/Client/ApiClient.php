@@ -44,12 +44,22 @@ class ApiClient implements ApiClientInterface
    */
   public function get(string $uri, array $queryParameters = []) : EntityBase
   {
-    $response = $this->serializer->deserialize(
-      $this->client->get(
+    try {
+      $request = $this->client->get(
         $uri, [
-          'query' => $queryParameters,
-          'verify' => false
-        ])->getBody()->getContents(),
+        'query'  => $queryParameters,
+        'verify' => false
+      ]);
+    } catch (\Exception $exception){
+      return new EntityBase();
+    }
+
+    if($request->getStatusCode() !== 200){
+      return new EntityBase();
+    }
+
+    $response = $this->serializer->deserialize(
+      $request->getBody()->getContents(),
       EntityBase::class,
       'json'
     );
